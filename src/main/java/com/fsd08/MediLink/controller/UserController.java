@@ -74,8 +74,10 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Object> registerUser(@RequestBody RegistrationRequest registrationRequest, final HttpServletRequest request){
+    public ResponseEntity<Object> registerUser(@RequestBody RegistrationRequest registrationRequest,
+            final HttpServletRequest request) {
         Map<String, Object> result = new HashMap<>();
+        logger.info("aaa");
         // Check if username exists in the DB
         if (userRepository.existsByUsername(registrationRequest.username())) {
             result.put("msg", "Username is already taken!");
@@ -95,7 +97,7 @@ public class UserController {
         else if (!registrationRequest.password().equals(registrationRequest.confirmPassword())) {
             result.put("msg", "Failed to register user: Passwords do not match.");
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
-        }else {
+        } else {
             User user = userService.registerUser(registrationRequest);
             // create user authority
             Authority authority = new Authority(user.getUsername(), user.getAuthority());
@@ -108,18 +110,18 @@ public class UserController {
     }
 
     public String applicationUrl(HttpServletRequest request) {
-        return "http://"+request.getServerName()+":"
-                +request.getServerPort()+request.getContextPath();
+        return "http://" + request.getServerName() + ":"
+                + request.getServerPort() + request.getContextPath();
     }
 
     @GetMapping("/verifyEmail")
-    public String sendVerificationToken(@RequestParam("token") String token){
+    public String sendVerificationToken(@RequestParam("token") String token) {
         VerificationToken theToken = tokenRepository.findByToken(token);
-        if (theToken.getUser().isEnabled()){
+        if (theToken.getUser().isEnabled()) {
             return "This account has already been verified, please login.";
         }
         String verificationResult = userService.validateToken(token);
-        if (verificationResult.equalsIgnoreCase("valid")){
+        if (verificationResult.equalsIgnoreCase("valid")) {
             return "<h1>Email verified successfully. Now you can <a href='http://localhost:3000/login'>login</a> to your account<h1>";
         }
         return "Invalid verification link";
