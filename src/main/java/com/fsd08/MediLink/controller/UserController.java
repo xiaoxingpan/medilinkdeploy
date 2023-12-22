@@ -77,7 +77,7 @@ public class UserController {
     public ResponseEntity<Object> registerUser(@RequestBody RegistrationRequest registrationRequest,
             final HttpServletRequest request) {
         Map<String, Object> result = new HashMap<>();
-        logger.info("aaa");
+        logger.info("aaaa");
         // Check if username exists in the DB
         if (userRepository.existsByUsername(registrationRequest.username())) {
             result.put("msg", "Username is already taken!");
