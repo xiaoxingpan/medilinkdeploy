@@ -1,0 +1,29 @@
+name: deploy frontend
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: create env file
+        run: echo "${{secrets.ENV_FILE}}">.env
+      - name: npm install
+        run: npm install
+
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+  deploy:
+      runs-on: ubuntu-latest
+      needs: [build]
+      steps:
+        - uses: actions/checkout@v3
+        - uses: akhileshns/heroku-deploy@v3.12.14 # This is the action
+          with:
+            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+            heroku_app_name: 'medilinkfrontend' #Must be unique in Heroku
+            heroku_email: 'panxx1988@gmail.com'
