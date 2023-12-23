@@ -11,7 +11,7 @@ jobs:
       - name: create env file
         run: echo "${{secrets.ENV_FILE}}">.env
       - name: npm ci
-        run: npm ci
+        run: npm install
       - name: install babel
         run: npm install --save-dev @babel/plugin-proposal-private-property-in-object --legacy-peer-deps
       - name: install babel
