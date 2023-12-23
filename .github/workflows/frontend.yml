@@ -12,6 +12,8 @@ jobs:
         run: echo "${{secrets.ENV_FILE}}">.env
       - name: npm install
         run: npm install
+      - name: install babel
+        run: npm install @babel/core @babel/preset-env
 
       - name: Run a multi-line script
         run: |
