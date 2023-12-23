@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.font-Poppins {
+  font-family: 'Poppins', sans-serif;
+}
