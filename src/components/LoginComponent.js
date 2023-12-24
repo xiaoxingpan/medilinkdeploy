@@ -39,7 +39,7 @@ const LoginComponent = () => {
       })
       // .then((response) => response.json())
       .then((data) => {
-        alert("token is " + data.token);
+        alert("The token is " + data.token);
         setShowFlashMessage(true);
         setFlashMessage("Login successfully!");
         setFlashMessageType("success");
