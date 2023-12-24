@@ -1,5 +1,9 @@
 {
   "presets": ["@babel/preset-env"]
+    "assumptions": {
+    "privateFieldsAsProperties": true,
+    "setPublicClassFields": true
+  }
 }
 
 
